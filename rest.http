@@ -1,0 +1,60 @@
+@api = http://localhost:5000/app/api
+
+POST {{api}}
+Content-Type: application/json
+{
+    "name": "David"
+}
+
+###
+GET {{api}}
+
+###
+POST {{api}}/auth/signup
+Content-Type: application/json
+
+{
+"name": "david",
+"email" : "davidecf@outlook.fr",
+"password" : "Luis2zapata"
+}
+
+###
+POST {{api}}/auth/signup
+Content-Type: application/json
+
+{
+    "name" : "Santiago",
+    "email" : "Santi@hotmail.com",
+    "password" : "santi2arango"
+}
+
+###
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+    "email" : "davidecf@outlook.fr",
+    "password" : "Luis2zapata"
+}
+
+###
+GET {{api}}
+
+###
+GET {{api}}/favorites
+
+###
+PUT {{api}}/favorites
+Content-Type: application/json
+
+{
+    "contactId" : "1ab3a197-541b-4732-9ae3-c50a3c3fb212"
+}
+###
+PUT {{api}}/favorites
+Content-Type: application/json
+
+{
+    "contactId" : "2ee8c343-84d4-448a-acb5-ba10a55fdece"
+}
