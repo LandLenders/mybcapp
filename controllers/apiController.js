@@ -4,16 +4,21 @@ import { createToken } from '../helpers/global.js'
 const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
-        const user = await User.findOne({where:{email}})
-        if (user){
-            return res.status(404).send('Este email ya está registrado')
+        try {
+            const user = await User.findOne({where:{email}})
+            if (user){
+                return res.status(404).send('Este email ya está registrado')
+            }
+            await User.create({
+                email,
+                name,
+                password
+            })
+            res.json({"status": "OK"})
+            
+        } catch (error) {
+            res.json({"status": "OK"})
         }
-        await User.create({
-            email,
-            name,
-            password
-        })
-        res.send('OK')
     }
 }
 
