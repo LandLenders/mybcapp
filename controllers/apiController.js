@@ -7,17 +7,17 @@ const singup = {
         try {
             const user = await User.findOne({where:{email}})
             if (user){
-                return res.status(404).json({"msg": "Este usuario ya está registrado"})
+                return res.status(404).json({"msg": "Este usuario ya está registrado", "statusCode": "404"})
             }
             await User.create({
                 email,
                 name,
                 password
             })
-            res.json({"status": "OK"})
+            res.json({"status": "OK", "statusCode" : "200"})
             
         } catch (error) {
-            res.json({"status": "OK"})
+            res.json({"statusCode" : "404", "msg" : error.message})
         }
     }
 }
