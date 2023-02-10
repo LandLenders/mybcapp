@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
 
 const CONFIG = {
-    db_host: 'localhost',
-    db_user: 'root',
-    db_password: 'Juliana2ochoa',
-    db_name: 'mybc',
-    db_port: 3306
+    db_host: process.env.HOST || 'localhost' ,
+    db_user: process.env.USER || 'root',
+    db_password: process.env.PASS || 'Juliana2ochoa',
+    db_name: process.env.NAME || 'mybc',
+    db_port: process.env.dbPORT || 3306
 }
 
 const db = new Sequelize(CONFIG.db_name, CONFIG.db_user, CONFIG.db_password , {

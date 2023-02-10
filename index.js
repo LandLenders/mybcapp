@@ -1,6 +1,6 @@
 import express from 'express'
 const app = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5500
 import db from './config/db.js'
 import Router from './routes/api.js'
 
