@@ -4,16 +4,6 @@ import { createToken } from '../helpers/global.js'
 const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
-        const userAgent = req.headers["user-agent"]
-        console.log(userAgent)
-
-        console.log(typeof userAgent)
-        console.log(userAgent.includes('okhhtp'))
-
-        if (!userAgent.includes('okhhtp') || !userAgent.includes('CFNetwork') || !userAgent.includes('Darwin')){
-            return res.json({status: '403', msg: 'Invalid Origin'})
-        }
-
 
         try {
             const user = await User.findOne({where:{email}})
@@ -37,7 +27,8 @@ const login = {
     post: async (req, res) => {
         const { email, password } = req.body
         try {
-            const user = await User.findOne({ where: { email } })
+            console.log(email, password)
+/*             const user = await User.findOne({ where: { email } })
 
             if (!user) {
                 res.json({ response: 'Invalid user' })
@@ -50,7 +41,7 @@ const login = {
 
             const token = createToken(user.id)
 
-            res.send({ ...user, token })
+            res.send({ ...user, token }) */
 
         } catch (e) {
             console.log(e)
