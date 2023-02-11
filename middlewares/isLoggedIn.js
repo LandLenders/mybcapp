@@ -9,7 +9,9 @@ const isLoggedIn = async (req, res, next) => {
         console.log(decodedToken.id)
         const user = await User.findOne({where: {id: decodedToken.id}})
         req.user = user
+        console.log(req.user)
         res.json({statusCode: '200', ...user})
+        next()
     }catch(e){
         res.json({statusCode: '401', msg: 'Forbidden'})
         console.log(e)
