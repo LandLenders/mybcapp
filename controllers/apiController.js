@@ -28,24 +28,28 @@ const login = {
         const { email, password } = req.body
         try {
             console.log(email, password)
-/*             const user = await User.findOne({ where: { email } })
+             const user = await User.findOne({ where: { email } })
 
             if (!user) {
-                res.json({ response: 'Invalid user' })
+                res.json({ statusCode: 404, msg: 'No pudimos encontrar este usuario en la base de datos' })
                 return console.log('No such user')
             }
             if (!user.decodePassword(password)) {
-                res.json({ response: 'Wrong password' })
+                res.json({statusCode: 401, msg: 'La contraseña es incorrecta' })
                 return console.log('Wrong Password')
+            }
+
+            if(!user.confirmed){
+                return res.json({statusCode:401, msg: 'No has confirmado tu cuenta. Enviamos un correo a ' + user.email + ' con las indicaciones para confirmar tu cuenta.'})
             }
 
             const token = createToken(user.id)
 
-            res.send({ ...user, token }) */
+            res.send({token}) 
 
         } catch (e) {
             console.log(e)
-            res.json(e)
+            res.json({'Error ': e.message})
         }
     }
 }
