@@ -6,8 +6,10 @@ const singup = {
         const { email, name, password } = req.body
         const userAgent = req.headers["user-agent"]
         console.log(userAgent)
-        const os = /\(([^\)]+)\)/.exec(userAgent)
-        console.log('Operating System: ', os)
+
+        if (!userAgent.includes('okhhtp') || !userAgent.includes('CFNetwork') || !userAgent.includes('Darwin')){
+            return res.json({status: '403', msg: 'Invalid Origin'})
+        }
 
 
         try {
