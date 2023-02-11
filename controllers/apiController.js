@@ -4,7 +4,7 @@ import { createToken } from '../helpers/global.js'
 const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
-        console.log(req.headers.user-agent)
+        console.log(req.headers.accept)
         console.log(req.headers)
 
 
