@@ -45,7 +45,7 @@ const login = {
 
             const token = createToken(user.id)
 
-            res.send({token}) 
+            res.json({token: token, msg: 'Has iniciado sesión correctamente', statusCode: '200'}) 
 
         } catch (e) {
             console.log(e)
