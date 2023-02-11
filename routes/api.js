@@ -17,7 +17,7 @@ Router.route('/auth/signup')
     .post(singup.post)
 Router.route('/auth/login')
     .post(login.post)
-Router.route('auth/checkSession')
+Router.route('/auth/checkSession')
     .post(isLoggedIn)
 
 
