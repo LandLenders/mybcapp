@@ -4,8 +4,9 @@ import { createToken } from '../helpers/global.js'
 const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
-        console.log(req.headers.accept)
-        console.log(req.headers)
+        const userAgent = req.headers["user-agent"]
+        const os = /\(([^\)]+)\)/.exec(userAgent)
+        console.log('Operating System: ', os)
 
 
         try {
