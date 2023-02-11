@@ -4,6 +4,7 @@ import { createToken } from '../helpers/global.js'
 const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
+        console.log(req.headers)
         try {
             const user = await User.findOne({where:{email}})
             if (user){
