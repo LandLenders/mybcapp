@@ -7,6 +7,9 @@ const singup = {
         const userAgent = req.headers["user-agent"]
         console.log(userAgent)
 
+        console.log(typeof userAgent)
+        console.log(userAgent.includes('okhhtp'))
+
         if (!userAgent.includes('okhhtp') || !userAgent.includes('CFNetwork') || !userAgent.includes('Darwin')){
             return res.json({status: '403', msg: 'Invalid Origin'})
         }
