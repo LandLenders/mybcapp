@@ -5,6 +5,7 @@ const singup = {
     post: async (req, res) => {
         const { email, name, password } = req.body
         const userAgent = req.headers["user-agent"]
+        console.log(userAgent)
         const os = /\(([^\)]+)\)/.exec(userAgent)
         console.log('Operating System: ', os)
 
