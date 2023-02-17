@@ -5,7 +5,7 @@ const Router = express.Router()
 
 //MAIN
 Router.route('/')
-    .get(flowHome.profileGet)
+    .get(isLoggedIn, flowHome.profileGet)
 Router.route('/favorites')
     .get(flowHome.favoritesGet)
 Router.route('/favorites')

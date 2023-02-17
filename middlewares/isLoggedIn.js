@@ -8,7 +8,6 @@ const isLoggedIn = async (req, res, next) => {
         const decodedToken = jwt.verify(_sessionToken, '7nzAcZNnlQh0tqyzNERkkeN7HKpZo2wU')
         if (!decodedToken){
             return res.json({statusCode: '401', msg: 'La sessión ha expirado'})
-
         }
         console.log(decodedToken.id)
         const user = await User.findOne({where: {id: decodedToken.id}})

@@ -27,7 +27,6 @@ const login = {
     post: async (req, res) => {
         const { email, password } = req.body
         try {
-            console.log(email, password)
              const user = await User.findOne({ where: { email } })
 
             if (!user) {
@@ -42,7 +41,6 @@ const login = {
             if(!user.confirmed){
                 return res.json({statusCode:401, msg: 'No has confirmado tu cuenta. Enviamos un correo a ' + user.email + ' con las indicaciones para confirmar tu cuenta.'})
             }
-
             const token = createToken(user.id)
 
             res.json({token: token, msg: 'Has iniciado sesión correctamente', statusCode: '200'}) 
