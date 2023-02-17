@@ -3,6 +3,7 @@ import { createToken } from '../helpers/global.js'
 import upload from '../middlewares/multer.js'
 import cloudinary from '../helpers/cloudinary.js'
 import path from 'path'
+import fs from 'fs'
 
 
 const singup = {
@@ -119,6 +120,7 @@ const flowHome = {
                     .then(async result => {
                         user.photo = result.url
                         await user.save()
+                        fs.unlinkSync(path.resolve('public/uploads/' + req.file.filename))
                         console.log(result)
                         console.log(req.file)
                         res.json({statusCode: '200', msg: 'Imagen cargada correctamente'})
