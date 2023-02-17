@@ -1,5 +1,9 @@
 import { User, Favorite } from '../models/relations.js'
 import { createToken } from '../helpers/global.js'
+import upload from '../middlewares/multer.js'
+import cloudinary from '../helpers/cloudinary.js'
+import path from 'path'
+
 
 const singup = {
     post: async (req, res) => {
@@ -99,6 +103,24 @@ const flowHome = {
         } catch (error) {
             res.json(error)
         }
+    },
+    uploadProfilePicture: async (req, res) => {
+        const { id } = req.body
+        const user = await User.findOne({where:{id}})
+
+        const storage = upload.single('image')
+        storage(req, res, () => {
+            if (user.photo === '' || user.photo === null){
+                cloudinary.uploader.upload(
+                    path.resolve('public/uploads/' + req.file.filename ),
+                    {resource_type: 'image'})
+                    .then(async result => {
+                        user.photo = result.url
+                        await user.save()
+                        console.log(result)
+                    })
+            }
+        })
     }
 }
 
