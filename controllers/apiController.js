@@ -43,7 +43,7 @@ const login = {
             }
             const token = createToken(user.id)
 
-            res.json({token: token, msg: 'Has iniciado sesión correctamente', statusCode: '200'}) 
+            res.json({token: token, msg: 'Has iniciado sesión correctamente', statusCode: '200', user: user["_previousDataValues"]}) 
 
         } catch (e) {
             console.log(e)
