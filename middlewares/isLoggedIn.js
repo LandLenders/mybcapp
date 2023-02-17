@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import User from '../models/User.js'
 
 const isLoggedIn = async (req, res, next) => {
-    const {_sessionToken} = req.body
+    const _sessionToken = req.headers.authorization
 
     try {
         const decodedToken = jwt.verify(_sessionToken, '7nzAcZNnlQh0tqyzNERkkeN7HKpZo2wU')
