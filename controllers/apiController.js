@@ -121,7 +121,7 @@ const flowHome = {
                         await user.save()
                         console.log(result)
                         console.log(result.url)
-                        res.json({statusCode: '200', msg: 'Imagen cargada correctamente', asset: result.secure_url})
+                        res.json({statusCode: '200', msg: 'Imagen cargada correctamente', asset: result.url})
                     }).catch(err => {
                         console.log(err)
                         res.json({msg: err})
