@@ -108,19 +108,21 @@ const flowHome = {
         const { id } = req.body
         const user = await User.findOne({where:{id}})
 
-        const storage = upload.single('image')
-        storage(req, res, () => {
-            if (user.photo === '' || user.photo === null){
-                cloudinary.uploader.upload(
-                    path.resolve('public/uploads/' + req.file.filename ),
-                    {resource_type: 'image'})
-                    .then(async result => {
-                        user.photo = result.url
-                        await user.save()
-                        console.log(result)
-                    })
-            }
-        })
+        console.log(user)
+
+        // const storage = upload.single('image')
+        // storage(req, res, () => {
+        //     if (user.photo === '' || user.photo === null){
+        //         cloudinary.uploader.upload(
+        //             path.resolve('public/uploads/' + req.file.filename ),
+        //             {resource_type: 'image'})
+        //             .then(async result => {
+        //                 user.photo = result.url
+        //                 await user.save()
+        //                 console.log(result)
+        //             })
+        //     }
+        // })
     }
 }
 
