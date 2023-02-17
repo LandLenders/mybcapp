@@ -110,8 +110,8 @@ const flowHome = {
         console.log(req.body)
         const storage = upload.single('image')
         storage(req, res, () => {
-            if (!req.file){
-                return res.json({statusCode: '404', msg: 'A file must be provided'})
+            if (!req.file) {
+                return res.json({ statusCode: '404', msg: 'A file must be provided' })
             }
             if (user.photo === '' || user.photo === null) {
                 cloudinary.uploader.upload(
@@ -123,12 +123,15 @@ const flowHome = {
                         fs.unlinkSync(path.resolve('public/uploads/' + req.file.filename))
                         console.log(result)
                         console.log(req.file)
-                        res.json({statusCode: '200', msg: 'Imagen cargada correctamente'})
+                        res.json({ statusCode: '200', msg: 'Imagen cargada correctamente' })
                     }).catch(err => {
                         console.log(err)
-                        res.json({msg: err.message})
+                        res.json({ msg: err.message })
                     })
-                }
+            }else{
+                cloudinary.uploader.destroy(user.photo.split('/')[7].split('.')[0])
+                    .then(result => console.log(result, result))
+            }
         })
     }
 }
