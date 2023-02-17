@@ -120,10 +120,11 @@ const flowHome = {
                         user.photo = result.url
                         await user.save()
                         console.log(result)
+                        console.log(req.file)
                         res.json({statusCode: '200', msg: 'Imagen cargada correctamente'})
                     }).catch(err => {
                         console.log(err)
-                        res.json({msg: err})
+                        res.json({msg: err.message})
                     })
                 }
         })
