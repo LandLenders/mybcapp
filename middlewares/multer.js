@@ -1,6 +1,6 @@
 import multer from 'multer'
 import path from 'path'
-import { KeyGen } from '../helpers/global'
+import { KeyGen } from '../helpers/global.js'
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){

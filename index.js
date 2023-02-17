@@ -7,7 +7,7 @@ import Router from './routes/api.js'
 //Database conection
 db.authenticate()
     .then(() => console.log('DB connected successfully'))
-    .catch(() => console.log('Failed to connect to DB', error))
+    .catch((error) => console.log('Failed to connect to DB', error))
 db.sync({alter: true})
 
 //Middlewares

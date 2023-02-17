@@ -8,7 +8,7 @@ const CONFIG = {
     db_port: process.env.dbPORT || 3306
 }
 
-const db = new Sequelize(CONFIG.db_name, CONFIG.db_user, CONFIG.db_password , {
+const db = new Sequelize(CONFIG.db_name, 'root', CONFIG.db_password , {
     host: CONFIG.db_host,
     port: CONFIG.db_port,
     dialect: 'mysql',

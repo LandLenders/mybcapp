@@ -1,6 +1,7 @@
 import express from 'express'
 import { flowHome, singup, login } from '../controllers/apiController.js'
 import isLoggedIn from '../middlewares/isLoggedIn.js'
+import {logginMiddleware} from '../middlewares/logginMiddelware.js'
 const Router = express.Router()
 
 //MAIN
@@ -13,15 +14,12 @@ Router.route('/favorites')
 Router.route('/upload-picture')
     .post(isLoggedIn, flowHome.uploadProfilePicture)
 
-
-
 //AUTH
 Router.route('/auth/signup')
     .post(singup.post)
 Router.route('/auth/login')
     .post(login.post)
 Router.route('/auth/checkSession')
-    .post(isLoggedIn)
-
+    .post(logginMiddleware)
 
 export default Router;
