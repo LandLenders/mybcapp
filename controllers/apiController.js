@@ -119,6 +119,7 @@ const flowHome = {
                     .then(async result => {
                         user.photo = result.secure_url
                         await user.save()
+                        console.log(result)
                         console.log(result.secure_url)
                         res.json({statusCode: '200', msg: 'Imagen cargada correctamente', asset: result.secure_url})
                     })
