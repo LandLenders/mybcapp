@@ -117,12 +117,12 @@ const flowHome = {
                     path.resolve('public/uploads/' + req.file.filename),
                     { resource_type: 'image' })
                     .then(async result => {
-                        user.photo = result.url
+                        user.photo = result.secure_url
                         await user.save()
-                        console.log(result)
+                        console.log(result.secure_url)
+                        res.json({statusCode: '200', msg: 'Imagen cargada correctamente', asset: result.secure_url})
                     })
             }
-            res.json({user})
         })
     }
 }
