@@ -10,6 +10,9 @@ Router.route('/favorites')
     .get(flowHome.favoritesGet)
 Router.route('/favorites')
     .put(flowHome.contactPut)
+Router.route('/upload-picture')
+    .post(isLoggedIn, flowHome.uploadProfilePicture)
+
 
 
 //AUTH
