@@ -128,9 +128,27 @@ const flowHome = {
                         console.log(err)
                         res.json({ msg: err.message })
                     })
-            }else{
+            } else {
                 cloudinary.uploader.destroy(user.photo.split('/')[7].split('.')[0])
-                    .then(result => console.log(result, result))
+                    .then(async result => {
+                        console.log(result)
+                        user.photo = ''
+                        await user.save()
+                    })
+                cloudinary.uploader.upload(
+                    path.resolve('public/uploads/' + req.file.filename),
+                    { resource_type: 'image' })
+                    .then(async result => {
+                        user.photo = result.url
+                        await user.save()
+                        fs.unlinkSync(path.resolve('public/uploads/' + req.file.filename))
+                        console.log(result)
+                        console.log(req.file)
+                        res.json({ statusCode: '200', msg: 'Imagen cargada correctamente' })
+                    }).catch(err => {
+                        console.log(err)
+                        res.json({ msg: err.message })
+                    })
             }
         })
     }
