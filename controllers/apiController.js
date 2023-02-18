@@ -123,7 +123,7 @@ const flowHome = {
                         fs.unlinkSync(path.resolve('public/uploads/' + req.file.filename))
                         console.log(result)
                         console.log(req.file)
-                        res.json({ statusCode: '200', msg: 'Imagen cargada correctamente' })
+                        res.json({ statusCode: '200', msg: 'Imagen cargada correctamente', asset: result.url })
                     }).catch(err => {
                         console.log(err)
                         res.json({ msg: err.message })
