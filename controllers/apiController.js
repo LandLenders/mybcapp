@@ -107,7 +107,7 @@ const flowHome = {
     },
     uploadProfilePicture: async (req, res) => {
         const user = req.user
-        console.log(req.header)
+        console.log(req.headers)
         const storage = upload.single('image')
         storage(req, res, () => {
             if (!req.file) {
