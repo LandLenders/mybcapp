@@ -13,6 +13,10 @@ Router.route('/favorites')
     .put(flowHome.contactPut)
 Router.route('/upload-picture')
     .post(isLoggedIn, flowHome.uploadProfilePicture)
+Router.route('/get-contact/:id')
+    .get(isLoggedIn, flowHome.contactGet)
+Router.route('/get-all-contacts')
+    .get(isLoggedIn, flowHome.getAllContacts)
 
 //AUTH
 Router.route('/auth/signup')

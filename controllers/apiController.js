@@ -1,4 +1,4 @@
-import { User, Favorite } from '../models/relations.js'
+import { User, Favorite, Contact } from '../models/relations.js'
 import { createToken } from '../helpers/global.js'
 import upload from '../middlewares/multer.js'
 import cloudinary from '../helpers/cloudinary.js'
@@ -88,6 +88,30 @@ const flowHome = {
         }
     },
     contactGet: async (req, res) => {
+        const { id } = req.params
+        try {
+            const contact = await User.findOne({ where: { id } })
+            if (!contact) {
+                return res.json({ statusCode: '401', msg: `No se encontró un contacto con el id ${id}` })
+            }
+            res.json({ contact, statusCode: '200' })
+        } catch (error) {
+            res.json({ statusCode: '404', msg: error.message })
+            console.log(error)
+        }
+    },
+    getAllContacts: async (req, res) => {
+        const user = req.user
+
+        try {
+            const contacts = await Contact.findAll({ where: { userId: user.id } })
+            if (!contacts) {
+                return res.json({ statusCode: '400', msg: 'Este usuario no tiene contactos' })
+            }
+            res.json(contacts)
+        } catch (error) {
+            res.json({ statusCode: '404', msg: error })
+        }
 
     },
     contactPut: async (req, res) => {

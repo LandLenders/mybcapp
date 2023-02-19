@@ -14,6 +14,9 @@ db.sync({alter: true})
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use('/app/api', Router)
+app.get('*', (req, res) => {
+    res.json({statusCode: '404', msg: 'Invalid Path'})
+})
 
 app.listen(PORT, () => {
     console.log('Backend server started on PORT ' + PORT)
