@@ -103,6 +103,20 @@ const flowHome = {
             console.log(error)
         }
     },
+    findContactByUrl: async (req, res) => {
+        const {url} = req.params
+        try {
+            const user = await User.findOne({where: {url}})
+            if (!user){
+                console.log('No se encontró el usuario')
+                return res.json({statusCode: 404, msg: 'Usuario no encontrado'})
+            }
+            console.log('usuario encontrado ', user)
+            res.json({statusCode: '200', user})
+        } catch (error) {
+            res.json({statusCode: '404', msg: error})
+        }
+    },
     getAllContacts: async (req, res) => {
         const user = req.user
 

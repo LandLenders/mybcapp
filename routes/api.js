@@ -17,6 +17,8 @@ Router.route('/get-contact/:id')
     .get(isLoggedIn, flowHome.contactGet)
 Router.route('/get-all-contacts')
     .get(isLoggedIn, flowHome.getAllContacts)
+Router.route('find-by-url/:url')
+    .get(flowHome.findContactByUrl)
 
 //AUTH
 Router.route('/auth/signup')
