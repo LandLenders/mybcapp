@@ -23,7 +23,8 @@ const User = db.define('users', {
     email: DataTypes.STRING,
     profession: DataTypes.STRING,
     profile: DataTypes.STRING,
-    photo: DataTypes.STRING
+    photo: DataTypes.STRING,
+    url: DataTypes.STRING
 },{
     hooks:{
         beforeCreate: async (user) => {

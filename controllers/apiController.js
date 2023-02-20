@@ -4,6 +4,7 @@ import upload from '../middlewares/multer.js'
 import cloudinary from '../helpers/cloudinary.js'
 import path from 'path'
 import fs from 'fs'
+import slug from 'slug'
 
 
 const singup = {
@@ -12,13 +13,15 @@ const singup = {
 
         try {
             const user = await User.findOne({ where: { email } })
+            const users = await User.findAll()
             if (user) {
                 return res.json({ "msg": "Este usuario ya está registrado", "statusCode": "404" })
             }
             await User.create({
                 email,
                 name,
-                password
+                password,
+                url: slug(`${user.name}${users.length}`)
             })
             res.json({ "msg": "Usuario creado correctamente", "statusCode": "200" })
 
