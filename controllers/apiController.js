@@ -21,7 +21,7 @@ const singup = {
                 email,
                 name,
                 password,
-                url: slug(`${user.name}${users.length}`)
+                url: slug(`${name}${users.length}`)
             })
             res.json({ "msg": "Usuario creado correctamente", "statusCode": "200" })
 
