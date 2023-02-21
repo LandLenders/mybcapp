@@ -113,12 +113,16 @@ const flowHome = {
                 console.log('No se encontró el usuario')
                 return res.json({statusCode: 404, msg: 'Usuario no encontrado'})
             }
-            const contact = await User.findOne({where:{
+            const contact = await Contact.findOne({where:{
                 userId: id,
                 contactId: user.id
             }})
-            console.log(contact)
-            res.json({statusCode: '200', user, contact})
+            if (contact){
+                res.json({statusCode: '200', user, contact: true})
+                console.log(contact)
+            }else{
+                res.json({statusCode: '200', user, contact: false})
+            }
         } catch (error) {
             res.json({statusCode: '404', msg: error})
         }
