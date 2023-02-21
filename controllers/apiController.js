@@ -198,7 +198,31 @@ const flowHome = {
                     })
             }
         })
+    },
+    addRemoveContact: async (req, res) => {
+        const {id} = req.user
+        const {contactID} = req.body
+
+        try {
+            const contact = await Contact.findOne({where:{userId: id, contactId: contactID}})
+            if (!contact){
+                await Contact.create({
+                    userId: id,
+                    contactId: contactID
+                }).then(() => {
+                    res.json({statusCode: '200', msg: 'Contacto Agregado '})
+                }).catch(e => console.log(e))
+            }else{
+                await Contact.destroy({where: {userId: id, contactId: contactID}})
+                    .then(() => {
+                        res.json({statusCode: '200', msg: 'Contacto Eliminado' })
+                    }).catch(e => console.log(e))
+            }
+        } catch (error) {
+            res.json({statusCode: '404', msg: error})
+        }
     }
+    
 }
 
 export {
