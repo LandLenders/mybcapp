@@ -105,8 +105,8 @@ const flowHome = {
     },
     findContactByUrl: async (req, res) => {
         const {url} = req.params
-        console.log(req.user['_previousDataValues'])
-        console.log('UserID: ', req.user.id)
+        const {id} = req.user
+        console.log(id)
         try {
             const user = await User.findOne({where: {url}})
             if (!user){
