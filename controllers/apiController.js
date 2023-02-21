@@ -106,14 +106,19 @@ const flowHome = {
     findContactByUrl: async (req, res) => {
         const {url} = req.params
         const {id} = req.user
-        console.log(id)
+
         try {
             const user = await User.findOne({where: {url}})
             if (!user){
                 console.log('No se encontró el usuario')
                 return res.json({statusCode: 404, msg: 'Usuario no encontrado'})
             }
-            res.json({statusCode: '200', user})
+            const contact = await User.findOne({where:{
+                userId: id,
+                contactId: user.id
+            }})
+            console.log(contact)
+            res.json({statusCode: '200', user, contact})
         } catch (error) {
             res.json({statusCode: '404', msg: error})
         }
