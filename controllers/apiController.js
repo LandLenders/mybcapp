@@ -113,7 +113,6 @@ const flowHome = {
                 console.log('No se encontró el usuario')
                 return res.json({statusCode: 404, msg: 'Usuario no encontrado'})
             }
-            console.log('usuario encontrado ', user)
             res.json({statusCode: '200', user})
         } catch (error) {
             res.json({statusCode: '404', msg: error})
