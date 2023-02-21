@@ -129,13 +129,14 @@ const flowHome = {
     },
     getAllContacts: async (req, res) => {
         const user = req.user
-
         try {
             const contacts = await Contact.findAll({ where: { userId: user.id } })
+            const contactIds = contacts.map(id => id.contactId)
+            const allContacts = await User.findAll({where:{id: contactIds}})
             if (!contacts) {
                 return res.json({ statusCode: '400', msg: 'Este usuario no tiene contactos' })
             }
-            res.json(contacts)
+            res.json(allContacts)
         } catch (error) {
             res.json({ statusCode: '404', msg: error })
         }
