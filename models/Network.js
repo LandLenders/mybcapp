@@ -6,9 +6,6 @@ const Network = db.define('networks', {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
-    },
-    body: {
-        type: DataTypes.TEXT
     }
 })
 

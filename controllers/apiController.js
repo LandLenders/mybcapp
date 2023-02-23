@@ -1,4 +1,4 @@
-import { User, Favorite, Contact } from '../models/relations.js'
+import { User, Favorite, Contact, Network } from '../models/relations.js'
 import { createToken } from '../helpers/global.js'
 import upload from '../middlewares/multer.js'
 import cloudinary from '../helpers/cloudinary.js'
@@ -221,6 +221,28 @@ const flowHome = {
             }
         } catch (error) {
             res.json({statusCode: '404', msg: error})
+        }
+    },
+    addRemoveContactFromNetwork: async (req, res) => {
+    },
+    createNetwork: async (req, res) => {
+        const {name} = req.body
+        const user = req.user
+        try {
+            const network = await Network.findOne({where:{userId: user.id, name}})
+            if (network){
+               return res.json({stausCode: '401', msg: 'No puedes crear 2 Networks con el mismo nombre, intenta un nombre diferente'})
+            }
+            Network.create({
+                name,
+                userId: user.id
+            }).then( result => {
+                console.log(result)
+                console.log('Network creado')
+                res.json({statusCode: '200', msg: 'Network creado exitosamente'})
+            })
+        } catch (error) {
+            
         }
     }
     

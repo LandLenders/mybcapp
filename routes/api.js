@@ -21,6 +21,8 @@ Router.route('/find-by-url/:url')
     .get(isLoggedIn, flowHome.findContactByUrl)
 Router.route('/add-remove-contact')
     .post(isLoggedIn, flowHome.addRemoveContact)
+Router.post('/create-network')
+    .post(isLoggedIn, flowHome.createNetwork)
 
 //AUTH
 Router.route('/auth/signup')
