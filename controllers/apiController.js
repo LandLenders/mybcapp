@@ -238,7 +238,7 @@ const flowHome = {
                 name,
                 userId: user.id
             })
-            res.json({statusCode: 'Network creado correctamente'})
+            res.json({statusCode: '200', msg: 'Network creado correctamente'})
 
         } catch (error) {
             
