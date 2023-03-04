@@ -228,19 +228,17 @@ const flowHome = {
     createNetwork: async (req, res) => {
         const {name} = req.body
         const user = req.user
+        console.log(name)
         try {
             const network = await Network.findOne({where:{userId: user.id, name}})
             if (network){
                return res.json({stausCode: '401', msg: 'No puedes crear 2 Networks con el mismo nombre, intenta un nombre diferente'})
             }
-            Network.create({
+            await Network.create({
                 name,
                 userId: user.id
-            }).then( result => {
-                console.log(result)
-                console.log('Network creado')
-                res.json({statusCode: '200', msg: 'Network creado exitosamente'})
             })
+
         } catch (error) {
             
         }

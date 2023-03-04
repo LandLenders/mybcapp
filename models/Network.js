@@ -6,7 +6,8 @@ const Network = db.define('networks', {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
-    }
+    },
+    name: DataTypes.STRING
 })
 
 export default Network
