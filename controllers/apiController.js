@@ -248,7 +248,20 @@ const flowHome = {
         const user = req.user
         const data = req.body
         //update user data
-        console.log(data, user)
+        console.log(data)
+
+        try {
+            user.name = data.name
+            user.profession = data.profession
+            user.phone = data.phone
+            user.about = data.about
+            user.company = data.company
+            user.url = data.url
+            await user.save()
+            
+        } catch (error) {
+            
+        }
 
         res.send({'msg': 'working'})
     }
