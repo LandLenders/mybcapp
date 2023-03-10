@@ -23,7 +23,7 @@ Router.route('/add-remove-contact')
     .post(isLoggedIn, flowHome.addRemoveContact)
 Router.route('/create-network')
     .post(isLoggedIn, flowHome.createNetwork)
-Router.route('/upate-profile')
+Router.route('/update-profile')
     .put(isLoggedIn, flowHome.updateProfile)
 
 //AUTH
