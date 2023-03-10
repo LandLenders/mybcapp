@@ -8,13 +8,11 @@ const User = db.define('users', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    password: {
-        type: DataTypes.STRING
-    },
     confirmed: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    password: DataTypes.STRING,
     name: DataTypes.STRING,
     phone: DataTypes.STRING,
     linkedin: DataTypes.STRING,
@@ -24,7 +22,18 @@ const User = db.define('users', {
     profession: DataTypes.STRING,
     profile: DataTypes.STRING,
     photo: DataTypes.STRING,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    company: DataTypes.STRING,
+    about: DataTypes.TEXT,
+    behance: DataTypes.STRING,
+    twitter: DataTypes.STRING,
+    youtube: DataTypes.STRING,
+    web: DataTypes.STRING,
+    zoom: DataTypes.STRING,
+    tiktok: DataTypes.STRING,
+    twich: DataTypes.STRING,
+    github: DataTypes.STRING,
+    discord: DataTypes.STRING,
 },{
     hooks:{
         beforeCreate: async (user) => {
