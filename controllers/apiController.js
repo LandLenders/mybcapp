@@ -243,6 +243,14 @@ const flowHome = {
         } catch (error) {
             
         }
+    },
+    updateProfile: async (req, res) => {
+        const user = req.user
+        const data = req.body
+        //update user data
+        console.log(data, user)
+
+        res.send({'msg': 'working'})
     }
     
 }
