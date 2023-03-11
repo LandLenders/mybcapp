@@ -264,6 +264,28 @@ const flowHome = {
             res.json({statusCode: '404', msg: error.message})
         }
 
+    },
+    favoriteContact: async (req, res) => {
+        const user = req.user
+        const {id} = req.body
+        try {
+            const favorite = await Favorite.findOne({where:{userId : user.id, contactId: id}})
+
+            if(favorite){
+               await Favorite.destroy({where:{userId : user.id, contactId: id}})
+               return res.json({statusCode: '200', msg: 'Este contacto se ha eliminado de tus favoritos'})
+            }
+
+            await Favorite.create({
+                contactId: id,
+                userId: user.id
+            })
+            res.json({statusCode: '200', msg: 'Este contacto se ha añadido a tus favoritos'})
+
+            
+        } catch (error) {
+            res.json({statusCode: '404', msg : error.message})
+        }
     }
     
 }

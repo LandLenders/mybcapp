@@ -25,6 +25,8 @@ Router.route('/create-network')
     .post(isLoggedIn, flowHome.createNetwork)
 Router.route('/update-profile')
     .put(isLoggedIn, flowHome.updateProfile)
+Router.route('/favoriteContact')
+    .put(isLoggedIn, flowHome.favoriteContact)
 
 //AUTH
 Router.route('/auth/signup')
