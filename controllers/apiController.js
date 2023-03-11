@@ -258,12 +258,12 @@ const flowHome = {
             user.company = data.company
             user.url = data.url
             await user.save()
-            
+            res.json({statusCode: '200', msg: 'Perfil actualizado correctamente'})
         } catch (error) {
             
+            res.json({statusCode: '404', msg: error.message})
         }
 
-        res.send({'msg': 'working'})
     }
     
 }
