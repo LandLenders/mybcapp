@@ -82,7 +82,7 @@ const flowHome = {
             const favorites = await Favorite.findAll({ where: { userId: user.id } })
             const contactIDs = favorites.map(id => id.contactId)
             const contacts = await User.findAll({ where: { id: contactIDs } })
-            res.json({statusCode: '200', contacts})
+            res.json({statusCode: '200', contacts: contacts})
         } catch (error) {
             res.json({err: error})
             console.log(error)
