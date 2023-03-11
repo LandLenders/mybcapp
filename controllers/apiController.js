@@ -77,16 +77,14 @@ const flowHome = {
         }
     },
     favoritesGet: async (req, res) => {
-        //:TODO => add validation or middleware for user
-
+        const user = req.user
         try {
-            const user = await User.findOne({ where: { email: 'davidecf@outlook.fr' } })
             const favorites = await Favorite.findAll({ where: { userId: user.id } })
             const contactIDs = favorites.map(id => id.contactId)
             const contacts = await User.findAll({ where: { id: contactIDs } })
-            res.json(contacts)
+            res.json({statusCode: '200', contacts})
         } catch (error) {
-            res.send(error)
+            res.json({err: error})
             console.log(error)
         }
     },
@@ -282,7 +280,6 @@ const flowHome = {
             })
             res.json({statusCode: '200', msg: 'Este contacto se ha añadido a tus favoritos'})
 
-            
         } catch (error) {
             res.json({statusCode: '404', msg : error.message})
         }
