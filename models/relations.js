@@ -8,7 +8,11 @@ User.hasMany(Favorite)
 User.hasMany(Contact)
 Contact.hasMany(Note)
 User.hasMany(Network)
-Contact.hasMany(Network)
+Network.belongsTo(User)
+User.hasMany(Network)
+
+Network.belongsToMany(Contact, {through: NetworkContact})
+Contact.belongsToMany(Network,  {through: NetworkContact})
 
 export{
     User, Network, Note, Favorite, Contact

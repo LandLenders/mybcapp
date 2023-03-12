@@ -293,6 +293,7 @@ const flowHome = {
         try {
             const allNetworks = await Network.findAll({where:{userId : user.id}})
             const contactIds = allNetworks.map(id => id.userId )
+            const contacts = await User.findAll({where:{id: contactIds}})
             res.json({contacts: contactIds})
         } catch (error) {
             
