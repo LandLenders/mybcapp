@@ -78,7 +78,7 @@ const flowHome = {
     },
     favoritesGet: async (req, res) => {
         const user = req.user
-        const { type, contact } = req.body
+        const { contact } = req.headers
 
          if (type === 'check') {
             const favorite = await Favorite.findOne({ where: { userId: user.id, contactId: contact } })
