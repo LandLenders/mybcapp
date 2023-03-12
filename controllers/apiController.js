@@ -87,15 +87,17 @@ const flowHome = {
             }else{
                 return res.json({contact: false})
             }
-        }
-        try {
-            const favorites = await Favorite.findAll({ where: { userId: user.id } })
-            const contactIDs = favorites.map(id => id.contactId)
-            const contacts = await User.findAll({ where: { id: contactIDs } })
-            res.json({ statusCode: '200', contacts: contacts })
-        } catch (error) {
-            res.json({ err: error })
-            console.log(error)
+        }else{
+
+            try {
+                const favorites = await Favorite.findAll({ where: { userId: user.id } })
+                const contactIDs = favorites.map(id => id.contactId)
+                const contacts = await User.findAll({ where: { id: contactIDs } })
+                res.json({ statusCode: '200', contacts: contacts })
+            } catch (error) {
+                res.json({ err: error })
+                console.log(error)
+            }
         }
     },
     contactGet: async (req, res) => {
