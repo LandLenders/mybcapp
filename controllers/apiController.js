@@ -78,13 +78,23 @@ const flowHome = {
     },
     favoritesGet: async (req, res) => {
         const user = req.user
+        const { type, contact } = req.body
+
+        if (type === 'check') {
+            const favorite = await Favorite.findOne({ where: { userId: user.id, contactId: contact } })
+            if (favorite){
+                return res.json({contact: true})
+            }else{
+                return res.json({contact: false})
+            }
+        }
         try {
             const favorites = await Favorite.findAll({ where: { userId: user.id } })
             const contactIDs = favorites.map(id => id.contactId)
             const contacts = await User.findAll({ where: { id: contactIDs } })
-            res.json({statusCode: '200', contacts: contacts})
+            res.json({ statusCode: '200', contacts: contacts })
         } catch (error) {
-            res.json({err: error})
+            res.json({ err: error })
             console.log(error)
         }
     },
@@ -102,27 +112,29 @@ const flowHome = {
         }
     },
     findContactByUrl: async (req, res) => {
-        const {url} = req.params
-        const {id} = req.user
+        const { url } = req.params
+        const { id } = req.user
 
         try {
-            const user = await User.findOne({where: {url}})
-            if (!user){
+            const user = await User.findOne({ where: { url } })
+            if (!user) {
                 console.log('No se encontró el usuario')
-                return res.json({statusCode: 404, msg: 'Usuario no encontrado'})
+                return res.json({ statusCode: 404, msg: 'Usuario no encontrado' })
             }
-            const contact = await Contact.findOne({where:{
-                userId: id,
-                contactId: user.id
-            }})
-            if (contact){
-                res.json({statusCode: '200', user, contact: true})
+            const contact = await Contact.findOne({
+                where: {
+                    userId: id,
+                    contactId: user.id
+                }
+            })
+            if (contact) {
+                res.json({ statusCode: '200', user, contact: true })
                 console.log(contact)
-            }else{
-                res.json({statusCode: '200', user, contact: false})
+            } else {
+                res.json({ statusCode: '200', user, contact: false })
             }
         } catch (error) {
-            res.json({statusCode: '404', msg: error})
+            res.json({ statusCode: '404', msg: error })
         }
     },
     getAllContacts: async (req, res) => {
@@ -130,7 +142,7 @@ const flowHome = {
         try {
             const contacts = await Contact.findAll({ where: { userId: user.id } })
             const contactIds = contacts.map(id => id.contactId)
-            const allContacts = await User.findAll({where:{id: contactIds}})
+            const allContacts = await User.findAll({ where: { id: contactIds } })
             if (!contacts) {
                 return res.json({ statusCode: '400', msg: 'Este usuario no tiene contactos' })
             }
@@ -199,47 +211,47 @@ const flowHome = {
         })
     },
     addRemoveContact: async (req, res) => {
-        const {id} = req.user
-        const {contactID} = req.body
+        const { id } = req.user
+        const { contactID } = req.body
 
         try {
-            const contact = await Contact.findOne({where:{userId: id, contactId: contactID}})
-            if (!contact){
+            const contact = await Contact.findOne({ where: { userId: id, contactId: contactID } })
+            if (!contact) {
                 await Contact.create({
                     userId: id,
                     contactId: contactID
                 }).then(() => {
-                    res.json({statusCode: '200', msg: 'Contacto Agregado '})
+                    res.json({ statusCode: '200', msg: 'Contacto Agregado ' })
                 }).catch(e => console.log(e))
-            }else{
-                await Contact.destroy({where: {userId: id, contactId: contactID}})
+            } else {
+                await Contact.destroy({ where: { userId: id, contactId: contactID } })
                     .then(() => {
-                        res.json({statusCode: '200', msg: 'Contacto Eliminado' })
+                        res.json({ statusCode: '200', msg: 'Contacto Eliminado' })
                     }).catch(e => console.log(e))
             }
         } catch (error) {
-            res.json({statusCode: '404', msg: error})
+            res.json({ statusCode: '404', msg: error })
         }
     },
     addRemoveContactFromNetwork: async (req, res) => {
     },
     createNetwork: async (req, res) => {
-        const {name} = req.body
+        const { name } = req.body
         const user = req.user
         console.log(name)
         try {
-            const network = await Network.findOne({where:{userId: user.id, name}})
-            if (network){
-               return res.json({stausCode: '401', msg: 'No puedes crear 2 Networks con el mismo nombre, intenta un nombre diferente'})
+            const network = await Network.findOne({ where: { userId: user.id, name } })
+            if (network) {
+                return res.json({ stausCode: '401', msg: 'No puedes crear 2 Networks con el mismo nombre, intenta un nombre diferente' })
             }
             await Network.create({
                 name,
                 userId: user.id
             })
-            res.json({statusCode: '200', msg: 'Network creado correctamente'})
+            res.json({ statusCode: '200', msg: 'Network creado correctamente' })
 
         } catch (error) {
-            
+
         }
     },
     updateProfile: async (req, res) => {
@@ -256,35 +268,35 @@ const flowHome = {
             user.company = data.company
             user.url = data.url
             await user.save()
-            res.json({statusCode: '200', msg: 'Perfil actualizado correctamente'})
+            res.json({ statusCode: '200', msg: 'Perfil actualizado correctamente' })
         } catch (error) {
-            
-            res.json({statusCode: '404', msg: error.message})
+
+            res.json({ statusCode: '404', msg: error.message })
         }
 
     },
     favoriteContact: async (req, res) => {
         const user = req.user
-        const {id} = req.body
+        const { id } = req.body
         try {
-            const favorite = await Favorite.findOne({where:{userId : user.id, contactId: id}})
+            const favorite = await Favorite.findOne({ where: { userId: user.id, contactId: id } })
 
-            if(favorite){
-               await Favorite.destroy({where:{userId : user.id, contactId: id}})
-               return res.json({statusCode: '200', msg: 'Este contacto se ha eliminado de tus favoritos'})
+            if (favorite) {
+                await Favorite.destroy({ where: { userId: user.id, contactId: id } })
+                return res.json({ statusCode: '200', msg: 'Este contacto se ha eliminado de tus favoritos' })
             }
 
             await Favorite.create({
                 contactId: id,
                 userId: user.id
             })
-            res.json({statusCode: '200', msg: 'Este contacto se ha añadido a tus favoritos'})
+            res.json({ statusCode: '200', msg: 'Este contacto se ha añadido a tus favoritos' })
 
         } catch (error) {
-            res.json({statusCode: '404', msg : error.message})
+            res.json({ statusCode: '404', msg: error.message })
         }
     }
-    
+
 }
 
 export {
