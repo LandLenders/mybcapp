@@ -291,7 +291,7 @@ const flowHome = {
     getNetworks: async (req, res) => {
         const user = req.user
         try {
-            const networks = Network.findAll({
+            const networks = await Network.findAll({
                 include: {
                     model: Contact
                 }
