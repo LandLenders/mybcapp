@@ -8,7 +8,7 @@ User.hasMany(Favorite)
 User.hasMany(Contact)
 Contact.hasMany(Note)
 User.hasMany(Network)
-Network.hasMany(Contact)
+Contact.hasMany(Network)
 
 export{
     User, Network, Note, Favorite, Contact
