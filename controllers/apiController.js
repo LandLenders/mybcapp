@@ -287,6 +287,17 @@ const flowHome = {
         } catch (error) {
             res.json({ statusCode: '404', msg: error.message })
         }
+    },
+    getNetworks: async (req, res) => {
+        const user = req.user
+
+        try {
+            const allNetworks = await Network.findAll({where:{userId : user.id}})
+            const contactIds = allNetworks.map(id => id.contactId )
+            res.json({contacts: contactIds})
+        } catch (error) {
+            
+        }
     }
 
 }
