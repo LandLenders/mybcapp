@@ -3,7 +3,7 @@ import Network from "./Network.js";
 import Note from "./Note.js";
 import Favorite from "./Favorite.js";
 import Contact from './Contact.js'
-NetworkContact
+import NetworkContact from './NetworkContact.js'
 
 User.hasMany(Favorite)
 User.hasMany(Contact)
