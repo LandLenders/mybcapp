@@ -291,10 +291,19 @@ const flowHome = {
     getNetworks: async (req, res) => {
         const user = req.user
         try {
-            const allNetworks = await Network.findAll({where:{userId : user.id}})
-            const contactIds = allNetworks.map(id => id.userId )
-            const contacts = await User.findAll({where:{id: contactIds}})
-            res.json({contacts: contactIds})
+            const networks = Network.findAll({
+                include: {
+                    model: Contact
+                }
+            })
+            const result = networks.map(network => {
+                return {
+                    id: network.id,
+                    name: network.name,
+                    contacts: network.contacts
+                }
+            })
+            return res.json({statusCode: '200', result})
         } catch (error) {
             
         }
