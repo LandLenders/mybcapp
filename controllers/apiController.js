@@ -78,18 +78,6 @@ const flowHome = {
     },
     favoritesGet: async (req, res) => {
         const user = req.user
-        const contact = req.headers.contact
-
-         if (contact !== null) {
-            const favorite = await Favorite.findOne({ where: { userId: user.id, contactId: contact } })
-            if (favorite){
-                console.log('encontrado')
-                return res.json({contact: true})
-            }else{
-                console.log('No encontrado')
-                return res.json({contact: false})
-            }
-        }else{ 
 
             try {
                 const favorites = await Favorite.findAll({ where: { userId: user.id } })
@@ -100,7 +88,7 @@ const flowHome = {
                 res.json({ err: error })
                 console.log(error)
             }
-        }
+        
     },
     contactGet: async (req, res) => {
         const { id } = req.params
