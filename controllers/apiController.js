@@ -292,6 +292,9 @@ const flowHome = {
         const user = req.user
         try {
             const networks = await Network.findAll({
+                where:{
+                    userId: user.id
+                },
                 include: {
                     model: Contact
                 }
@@ -303,7 +306,7 @@ const flowHome = {
                     contacts: network.contacts
                 }
             })
-            return res.json({statusCode: '200', result})
+            res.json({statusCode: '200', result})
         } catch (error) {
             
         }
