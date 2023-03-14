@@ -27,6 +27,8 @@ Router.route('/favoriteContact')
     .put(isLoggedIn, flowHome.favoriteContact)
 Router.route('/get-networks')
     .get(isLoggedIn, flowHome.getNetworks)
+Router.route('/add-remove-contact-from-network')
+    .put(isLoggedIn, flowHome.addContactsToNetwork)
 
 //AUTH
 Router.route('/auth/signup')

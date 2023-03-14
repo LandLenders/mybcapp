@@ -310,6 +310,24 @@ const flowHome = {
         } catch (error) {
             
         }
+    },
+    addContactsToNetwork : async (req, res) => {
+        const user = req.user
+        const {networkId, contactId} = req.body
+
+        try {
+            const network = await Network.findOne({where:{id: networkId}})
+            const contact = await Contact.findOne({where:{userId: user.id, contactId: contactId}})
+
+           const result = await network.addContacts(contact)
+           console.log(result)
+
+           res.json({result: result})
+
+        } catch (error) {
+            res.json({err: error})
+            
+        }
     }
 
 }
